@@ -4,20 +4,17 @@ layout: homepage
 
 ## About Me
 
-I am a Ph.D. student at ...
+I am a Ph.D. student at North Carolina State University
 
 ## Research Interests
 
-- **Computer Vision:** image recognition, image generation, video captioning
-- **Machine Learning:** meta-learning, incremental learning, transfer learning
+- **Sociolinguistics:** acoustic phonetics, variation & social meaning, corpus linguistics
+- **Cultural Sociology:** language & social evaluation, language and occupational segregation
+- **Ethics in Machine Learning:** linguistic bias in automated hiring technologies
 
 ## News
 
-- **[Feb. 2020]** Our paper about incremental learning is accepted to CVPR 2020.
-- **[Feb. 2020]** We will host the ACM Multimedia Asia 2020 conference in Singapore!
-- **[Sept. 2019]** Our paper about few-shot learning is accepted to NeurIPS 2019.
-- **[Mar. 2019]** Our paper about few-shot learning is accepted to CVPR 2019.
+- **[Apr. 2025]** Presented on a paper using machine learning approaches to model a typology of informal mentoring experiences at the 2025 meeting of the Southern Sociological Society (SSS).
+- **[Aug. 2023]** Shared work on a computational text analysis of gender-stereotypical language in US federal job ads at the 2023 meeting of the American Sociological Association (ASA).
 
-{% include_relative _includes/publications.md %}
 
-{% include_relative _includes/services.md %}
