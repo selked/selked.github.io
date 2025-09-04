@@ -14,10 +14,8 @@ I am a Ph.D. student at North Carolina State University
 
 ## Education
 
-**PhD**, Sociology, North Carolina State University (expected 2026)
-
-**M.S.**, Sociology, North Carolina State University (2023)
-
+**PhD**, Sociology, North Carolina State University (expected 2026)\
+**M.S.**, Sociology, North Carolina State University (2023)\
 **B.A.**, Writing & Applied Linguistics, Grand Valley State University (2017)
 
 ## News
