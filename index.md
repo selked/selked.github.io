@@ -1,7 +1,7 @@
 ---
 layout: homepage
 ---
-[Home](https://selked.github.io) | Research | Teaching | Resources | Blog
+## [Home](https://selked.github.io) | Research | Teaching | Resources | Blog
 
 Welcome to my scholarly homepage! My name is Daulton Selke, and I am a PhD student in North Carolina State's Department of Sociology & Anthropology. 
 
