@@ -1,11 +1,11 @@
 ---
 layout: homepage
 ---
-[Home](https://selked.github.io) | Research | Teaching | Resources
+[Home](https://selked.github.io) | Research | Teaching | Resources | Blog
 
 Welcome to my scholarly homepage! My name is Daulton Selke, and I am a PhD student in North Carolina State's Department of Sociology & Anthropology. 
 
-I am a computational social scientist with interests at the union of sociolinguistics and  cultural & cognitive sociology. My work explores the representational architecture underlying our perceptions of other people, with particular attention to dialectal variation as a cue for socially distributed associations. I draw from sociophonetic methods for linguistic description to increase the resolution of linguistic variables in sociological analyses, with the hope of clarifying the role of language in cultural sociological accounts of perception, thought, and behavior. I am especially interested in the way that our systems of associative, cultural knowledge functions to reproduce patterns of social inequality. This had led me downstream to several of my current projects on gender-stereotypical language in US federal job advertisements and dialect bias in AI hiring technologies. 
+I am a computational social scientist with interests at the union of sociolinguistics and  cultural & cognitive sociology. My work explores the representational architecture underlying our perceptions of other people, with particular attention to dialectal variation as a cue for socially distributed associations. I draw from sociophonetic methods for linguistic description to increase the resolution of linguistic variables in sociological analyses, with the hope of clarifying the role of language in cultural sociological accounts of perception, thought, and behavior. I am especially interested in the way that our systems of associative, cultural knowledge function to reproduce patterns of social inequality. This had led me downstream to several of my current projects on gender-stereotypical language in US federal job advertisements and dialect bias in AI hiring technologies. 
 
 ## Interests
 
@@ -14,6 +14,12 @@ I am a computational social scientist with interests at the union of sociolingui
 - Mechanisms of Social Inequality
 - Quantitative and Computational Methods
 - Ethics in AI Technologies
+
+## Projects Currently Underway
+- Sociolinguistic Variation and Automatic Prediction of Occupational Fit
+- Occupational Segregation and Gendered Language in Job Advertisements
+- Social Class Foundations of Adolescent Informal Mentoring Experiences
+- Statehood and Media Depictions of Agency in Conflict
 
 ## Education
 
