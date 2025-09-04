@@ -1,16 +1,19 @@
 ---
 layout: homepage
 ---
+[Home](https://selked.github.io) | Research | Teaching | Resources
 
-## About Me
+Welcome to my scholarly homepage! My name is Daulton Selke, and I am a PhD student in North Carolina State's Department of Sociology & Anthropology. 
 
-I am a Ph.D. student at North Carolina State University
+I am a computational social scientist with interests at the union of sociolinguistics and  cultural & cognitive sociology. My work explores the representational architecture underlying our perceptions of other people, with particular attention to dialectal variation as a cue for socially distributed associations. I draw from sociophonetic methods for linguistic description to increase the resolution of linguistic variables in sociological analyses, with the hope of clarifying the role of language in cultural sociological accounts of perception, thought, and behavior. I am especially interested in the way that our systems of associative, cultural knowledge functions to reproduce patterns of social inequality. This had led me downstream to several of my current projects on gender-stereotypical language in US federal job advertisements and dialect bias in AI hiring technologies. 
 
-## Research Interests
+## Interests
 
-**Sociolinguistics:** acoustic phonetics, variation & social meaning, corpus linguistics
-**Cultural Sociology:** language & social evaluation, language and occupational segregation
-**Ethics in Machine Learning:** linguistic bias in automated hiring technologies
+- Sociolinguistics
+- Cultural and Cognitive Sociology
+- Mechanisms of Social Inequality
+- Quantitative and Computational Methods
+- Ethics in AI Technologies
 
 ## Education
 
@@ -18,9 +21,5 @@ I am a Ph.D. student at North Carolina State University
 **M.S.**, Sociology, North Carolina State University (2023)\
 **B.A.**, Writing & Applied Linguistics, Grand Valley State University (2017)
 
-## News
-
-**[Apr. 2025]** Presented on a paper using machine learning approaches to model a typology of informal mentoring experiences at the 2025 meeting of the Southern Sociological Society (SSS).\
-**[Aug. 2023]** Shared work on a computational text analysis of gender-stereotypical language in US federal job ads at the 2023 meeting of the American Sociological Association (ASA).
 
 
