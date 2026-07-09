@@ -10,8 +10,10 @@ website:
     pinned: true
     right:
       - href: index.qmd
+        icon: house
         text: Home
       - href: posts.qmd
+        icon: pencil-square
         text: Blog
       
     
