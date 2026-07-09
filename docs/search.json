@@ -1,0 +1,114 @@
+[
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "SR = Statistical Rethinking by Richard McElreath\nSR(K)1 = Solomon Kurz’s translation of McElreath’s book.\nBR = Bayes Rules by Johnson, Ott, and Dogucu"
+  },
+  {
+    "objectID": "schedule.html#footnotes",
+    "href": "schedule.html#footnotes",
+    "title": "Schedule",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nMcElreath’s R code is primarily in base R, and much of the Bayesian sampling in SR utilizes a neat but idiosyncratic package of his own design. Kurz’s workbook provides code for all of McElreath’s exercises using tidyverse & brms syntax. We’ll make much use of the brms package, which allows us to specify Bayesian models using the same kind of syntax that we’re all familiar with via lm() or lme4(). This means that Kurz’s text is best utilized as a companion piece to SR—particularly for the model-specification procedures in R—rather than a wholly separate piece.↩︎"
+  },
+  {
+    "objectID": "README.html",
+    "href": "README.html",
+    "title": "Bayesian Book Club",
+    "section": "",
+    "text": "A simple website for keeping track of a reading series on Bayesian inference"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Daulton Selke",
+    "section": "",
+    "text": "Welcome to my scholarly homepage! My name is Daulton Selke, and I am a PhD student in North Carolina State’s Department of Sociology & Anthropology.\nI am a computational social scientist with interests at the union of sociolinguistics and cognitive cultural sociology. My work explores the representational architecture underlying our perceptions of other people, with particular attention to dialectal variation as a cue for socially distributed associations.\nI draw from sociophonetic methods for linguistic description to increase the resolution of spoken language variables in sociological analyses, hoping to clarify the role of language in cultural sociological accounts of perception, thought, and behavior. Additionally, I use natural language processing techniques from computational linguistics to aid in cultural measurement of text data.\nI am especially interested in the way that our systems of associative, cultural knowledge function to reproduce patterns of social inequality. This has led me downstream to several of my current projects on gender-stereotypical language in US federal job advertisements and dialect bias in AI hiring technologies."
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References and Further Reading",
+    "section": "",
+    "text": "Brauer, Jonathan R., Jacob C. Day, and Brittany M. Hammond. 2021. “Do Employers ‘Walk the Talk’ After All? An Illustration of Methods for Assessing Signals in Underpowered Designs.” Sociological Methods & Research 50(4):1801–41. doi:10.1177/0049124119826158.\n\n\nCoretta, Stefano. 2025. Quantitative Data Analysis for Linguists in r. version 1.4.0.\n\n\nGabry, Jonah, Daniel Simpson, Aki Vehtari, Michael Betancourt, and Andrew Gelman. 2019. “Visualization in Bayesian Workflow.” Journal of the Royal Statistical Society Series A: Statistics in Society 182(2):389–402. doi:10.1111/rssa.12378.\n\n\nGelman, Andrew, John B. Carlin, Hal S. Stern, David B. Dunson, Aki Vehtari, and Donald B. Rubin. 2013. Bayesian Data Analysis. 3rd ed.\n\n\nGelman, Andrew, and Cosma Rohilla Shalizi. 2013. “Philosophy and the Practice of Bayesian Statistics.” The British Journal of Mathematical and Statistical Psychology 66(1):8–38. doi:10.1111/j.2044-8317.2011.02037.x.\n\n\nGelman, Andrew, Daniel Simpson, and Michael Betancourt. 2017. “The Prior Can Often Only Be Understood in the Context of the Likelihood.” Entropy 19(10):555. doi:10.3390/e19100555.\n\n\nGelman, Andrew, Aki Vehtari, Daniel Simpson, Charles C. Margossian, Bob Carpenter, Yuling Yao, Lauren Kennedy, Jonah Gabry, Paul-Christian Bürkner, and Martin Modrák. 2020. “Bayesian Workflow.”\n\n\nHuntington-Klein, Nick. 2025. The Effect: An Introduction to Research Design and Causality. Second edition. Boca Raton, FL: CRC Press.\n\n\nJackman, Simon. 2009. Bayesian Analysis for the Social Sciences. Wiley Series in Probability and Statistics. Chichester, U.K: Wiley.\n\n\nJohnson, Alicia A., Miles Q. Ott, and Mine Dogucu. 2022. Bayes Rules!: An Introduction to Applied Bayesian Modeling. 1st ed. Boca Raton: Chapman; Hall/CRC.\n\n\nKelter, Riko. 2022. “The Evidence Interval and the Bayesian Evidence Value: On a Unified Theory for Bayesian Hypothesis Testing and Interval Estimation.” British Journal of Mathematical and Statistical Psychology 75(3):550–92. doi:10.1111/bmsp.12267.\n\n\nKelter, Riko. 2023. “How to Choose Between Different Bayesian Posterior Indices for Hypothesis Testing in Practice.” Multivariate Behavioral Research 58(1):160–88. doi:10.1080/00273171.2021.1967716.\n\n\nKruschke, John K. 2013. “Bayesian Estimation Supersedes the t Test.” Journal of Experimental Psychology: General 142(2):573–603. doi:10.1037/a0029146.\n\n\nKruschke, John K. 2015. Doing Bayesian Data Analysis: A Tutorial with r, JAGS, and Stan. Edition 2. Boston: Academic Press.\n\n\nKruschke, John K., and Torrin M. Liddell. 2018. “The Bayesian New Statistics: Hypothesis Testing, Estimation, Meta-Analysis, and Power Analysis from a Bayesian Perspective.” Psychonomic Bulletin & Review 25(1):178–206. doi:10.3758/s13423-016-1221-4.\n\n\nKurz, A. Solomon. 2026a. Doing Bayesian Data Analysis in Brms and the Tidyverse. Version 1.3.0.\n\n\nKurz, A. Solomon. 2026b. Statistical Rethinking with Brms, Ggplot2, and the Tidyverse. version 1.4.0.\n\n\nLambert, Ben. 2018. A Student’s Guide to Bayesian Statistics. London: SAGE.\n\n\nLynch, Scott M., and Bryce Bartlett. 2019. “Bayesian Statistics in Sociology: Past, Present, and Future.” Annual Review of Sociology 45:47–68. https://www.jstor.org/stable/48547633.\n\n\nMakowski, Dominique, Mattan S. Ben-Shachar, and Daniel Lüdecke. 2019. “bayestestR: Describing Effects and Their Uncertainty, Existence and Significance Within the Bayesian Framework.” Journal of Open Source Software 4(40):1541. doi:10.21105/joss.01541.\n\n\nMcElreath, Richard. 2020. Statistical Rethinking: A Bayesian Course with Examples in r and Stan. Second edition. Texts in Statistical Science. Boca Raton: Chapman & Hall/CRC.\n\n\nRaftery, Adrian E. 2001. “Statistics in Sociology, 1950–2000: A Selective Review.” Sociological Methodology 31(1):1–45. doi:10.1111/0081-1750.00088.\n\n\nStanton, Jeffrey M. 2021. “Evaluating Equivalence and Confirming the Null in the Organizational Sciences.” Organizational Research Methods 24(3):491–512. doi:10.1177/1094428120921934."
+  },
+  {
+    "objectID": "index.html#interests",
+    "href": "index.html#interests",
+    "title": "Welcome!",
+    "section": "Interests",
+    "text": "Interests\n\nSociolinguistics\nCultural and Cognitive Sociology\nMechanisms of Social Inequality\nQuantitative and Computational Methods\nEthics in AI Technologies"
+  },
+  {
+    "objectID": "index.html#projects-currently-underway",
+    "href": "index.html#projects-currently-underway",
+    "title": "Welcome!",
+    "section": "Projects Currently Underway",
+    "text": "Projects Currently Underway\n\nSociolinguistic Variation and Automatic Prediction of Occupational Fit\nOccupational Segregation and Gendered Language in Job Advertisements\nSocial Class Foundations of Adolescent Informal Mentoring Experiences\nStatehood and Media Depictions of Agency in Conflict"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Welcome!",
+    "section": "Education",
+    "text": "Education\n PhD, Sociology, North Carolina State University (expected 2026)\n M.S., Sociology, North Carolina State University (2023)\n B.A., Writing & Applied Linguistics, Grand Valley State University (2017)"
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Daulton’s Blog",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d626f6f6b203e7d7d-projects-currently-underway",
+    "href": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d626f6f6b203e7d7d-projects-currently-underway",
+    "title": "Welcome!",
+    "section": "{{< fa-book >}} Projects Currently Underway",
+    "text": "{{&lt; fa-book &gt;}} Projects Currently Underway\n\nSociolinguistic Variation and Automatic Prediction of Occupational Fit\nOccupational Segregation and Gendered Language in Job Advertisements\nSocial Class Foundations of Adolescent Informal Mentoring Experiences\nStatehood and Media Depictions of Agency in Conflict"
+  },
+  {
+    "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d736f6c69642066612d626f6f6b203e7d7d-projects-currently-underway",
+    "href": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d736f6c69642066612d626f6f6b203e7d7d-projects-currently-underway",
+    "title": "Welcome!",
+    "section": "{{< fa-solid fa-book >}} Projects Currently Underway",
+    "text": "{{&lt; fa-solid fa-book &gt;}} Projects Currently Underway\n\nSociolinguistic Variation and Automatic Prediction of Occupational Fit\nOccupational Segregation and Gendered Language in Job Advertisements\nSocial Class Foundations of Adolescent Informal Mentoring Experiences\nStatehood and Media Depictions of Agency in Conflict"
+  },
+  {
+    "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d70656e2d6e6962203e7d7d-projects-currently-underway",
+    "href": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d70656e2d6e6962203e7d7d-projects-currently-underway",
+    "title": "Welcome!",
+    "section": "{{< fa-pen-nib >}} Projects Currently Underway",
+    "text": "{{&lt; fa-pen-nib &gt;}} Projects Currently Underway\n\nSociolinguistic Variation and Automatic Prediction of Occupational Fit\nOccupational Segregation and Gendered Language in Job Advertisements\nSocial Class Foundations of Adolescent Informal Mentoring Experiences\nStatehood and Media Depictions of Agency in Conflict"
+  },
+  {
+    "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612070656e2d6e6962203e7d7d-projects-currently-underway",
+    "href": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612070656e2d6e6962203e7d7d-projects-currently-underway",
+    "title": "Daulton Selke",
+    "section": " Projects Currently Underway",
+    "text": "Projects Currently Underway\n\nSociolinguistic Variation and Automatic Prediction of Occupational Fit\nOccupational Segregation and Gendered Language in Job Advertisements\nSocial Class Foundations of Adolescent Informal Mentoring Experiences\nStatehood and Media Depictions of Agency in Conflict"
+  },
+  {
+    "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206661206d61676e696679696e672d676c617373203e7d7d-interests",
+    "href": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206661206d61676e696679696e672d676c617373203e7d7d-interests",
+    "title": "Daulton Selke",
+    "section": " Interests",
+    "text": "Interests\n\nSociolinguistics\nCultural and Cognitive Sociology\nMechanisms of Social Inequality\nQuantitative and Computational Methods\nEthics in AI Technologies"
+  },
+  {
+    "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206661207363686f6f6c203e7d7d-education",
+    "href": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206661207363686f6f6c203e7d7d-education",
+    "title": "Daulton Selke",
+    "section": " Education",
+    "text": "Education\n PhD, Sociology, North Carolina State University (expected 2026)\n M.S., Sociology, North Carolina State University (2023)\n B.A., Writing & Applied Linguistics, Grand Valley State University (2017)"
+  }
+]

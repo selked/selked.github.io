@@ -1,0 +1,27 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  repo-url: https://github.com/selked/selked.github.io
+  repo-actions: [source]
+  title: "Daulton Selke's Scholarly Website"
+  navbar:
+    pinned: true
+    right:
+      - href: index.qmd
+        text: Home
+      - href: posts.qmd
+        text: Blog
+      
+    
+      
+format:
+  html:
+    theme:
+      - lux
+    css: styles.css
+    toc: true
+
+editor: visual
+

@@ -1,2 +1,1 @@
-# Daulton Selke's Personal Website
-## Computational social scientist: Language, culture, and cognition
+A simple website for keeping track of a reading series on Bayesian inference

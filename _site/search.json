@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "SR = Statistical Rethinking by Richard McElreath\nSR(T) = Solomon Kurz’s translation of McElreath’s book. McElreath’s R code is primarily in base R, and much of the Bayesian sampling utilizes an idiosyncratic package of his own design. Kurz’s workbook provides code for all of McElreath’s exercises while using tidyverse & brms syntax.\nBR, = Bayes Rules by Johnson, Ott, and Dogucu\n\n\n\nWeek\nMeeting Day\nTopic\nReading(s) and Lecture content\n\n\n\n\n1\nJune 19th\nIntroduction to Bayesian thinking\n\nChapter 1 of SR\nIntroduction to Bayesian Workflow lecture\nFrequentist statistics, the Null Ritual, and p-values\n\n\n\n2\nTBA\nBayesian probabilities and ‘sampling from the imaginary’\n\nChapters 2 & 3 in SR\nChapters 2 & 3 in SR(T)\nThe Garden of Forking Data lecture\n\n\n\n3\nTBA\n\n\n\n\n4\nTBA\n\n\n\n\n5\nTBA\n\n\n\n\n6\nTBA"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Bayesian Book Club",
+    "section": "",
+    "text": "This website is home to the Bayesian Boys Book Club. Just a few fellas looking to expand our statistical horizon.\nWe follow along with a few select readings and meet up once or twice a month to discuss what we’ve learned.\nFor the most part, we will work through Richard McElreath’s Statistical Rethinking, along with some assorted book chapters, empirical articles, and lecture recordings."
+  }
+]

@@ -1,0 +1,7 @@
+# Changes made here will effect all blog posts
+
+# don't re-render post unless source file is edited
+freeze: auto
+
+# enable banner style title blocks
+title-block-banner: true
