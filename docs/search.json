@@ -46,6 +46,34 @@
     "href": "posts.html",
     "title": "Daulton’s Blog",
     "section": "",
-    "text": "No matching items"
+    "text": "Tidy Tuesday  Striking in the UFC\n\n\n\nMMA\n\nData Visualization\n\nTidy Tuesday\n\n\n\nAn exploration of UFC striking data with interactive plotting\n\n\n\nDaulton Selke\n\n\nJul 10, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2026-07-09-tidy-ufc/index.html",
+    "href": "posts/2026-07-09-tidy-ufc/index.html",
+    "title": "Tidy Tuesday  Striking in the UFC",
+    "section": "",
+    "text": "For my first blog post, I decided to finally start having some fun with Tidy Tuesday. It’s been on my radar for a while now, and—as a degenerate MMA enthusiast—I finally answered the call after observing that this past Tuesday’s challenge involved the UFCstats.com database.\nI’ve also been thinking more about interactivity in data visualization lately. It’s probably about time I get more familiar with this kind of reporting, so I’m taking this opportunity to work with the super neat ggiraph package for R."
+  },
+  {
+    "objectID": "posts/2026-07-09-tidy-ufc/index.html#the-plot",
+    "href": "posts/2026-07-09-tidy-ufc/index.html#the-plot",
+    "title": "Tidy Tuesday  Striking in the UFC",
+    "section": "The Plot",
+    "text": "The Plot"
+  },
+  {
+    "objectID": "posts/2026-07-10-tidy-ufc/index.html",
+    "href": "posts/2026-07-10-tidy-ufc/index.html",
+    "title": "Tidy Tuesday  Striking in the UFC",
+    "section": "",
+    "text": "For my first blog post, I decided to finally start having some fun with Tidy Tuesday. It’s been on my radar for a while now, and—as a degenerate MMA enthusiast—I finally answered the call after observing that this past Tuesday’s challenge involved the UFCstats.com database.\nI’ve also been thinking more about interactivity in data visualization lately. It’s probably about time I get more familiar with this kind of reporting, so I’m taking this opportunity to work with the super neat ggiraph package for R. I’ll note that I’m not going to make the code the focus of the post here, but I encourage you to view the source code for this page if you are curious."
+  },
+  {
+    "objectID": "posts/2026-07-10-tidy-ufc/index.html#the-plot",
+    "href": "posts/2026-07-10-tidy-ufc/index.html#the-plot",
+    "title": "Tidy Tuesday  Striking in the UFC",
+    "section": "The Plot",
+    "text": "The Plot\n\n\n\n\n\n\nNot too bad! I’ll note that the data didn’t include a ready-made variable for total strikes absorbed, so I wound up using the per/minute metrics rather for calculating the striking differential plotted on the x-axis. It should be possible to reconstruct these cumulative counts from the fight-by-fight data, but that will be a task for another blog.\nI opted to plot this in quadrant fashion, where the data is split vertically according to the sample’s mean striking differential, and horizontally according to the sample’s median number of total strikes landed. So, a fighter will ideally want to be in the upper right corner of this plot, which reflects above-average performance in both total strikes landed and striking differential. A fighter in the lower left corner, on the other hand, is in a tough spot. They don’t land very much, and they get hit much more often than they land. Daniel Lacerda in the far-left corner reflects a worst-case scenario here, and the stats track with his qualitative experience in the promotion. He had 6 fights with the promotion, with one No Contest and 5 losses within the first two rounds.\nAs for Max Holloway, we can see that his dominance in overall strikes landed remains visually striking here, but characterizing his striking differential in terms of per/minute stats—rather than career totals—does attenuate his dominance in striking differential. However, many of the fighters with notably higher differentials are also not quite as far into their careers. For example, note Wang Cong in the bottom right corner. She has one of the best differentials logged, but this reflects a peformance across 5 UFC fights compared to Max’s 32 UFC fights. Tom Aspinall is in a similar vein here, though he does have 10 fights. Because he is a notorious effective finisher, he very rarely fights beyond the first round, basically meaning that he’s too successful to accumulate much volume.\nI’ll note that the drafting process for this figure revealed some possible inconsistencies in the data. I filtered out “Charles Radtke”, whom I verified as having an impossibly low strike count. I also attempted to plot total strikes landed in terms of a per-fight average, and Nick Diaz was recorded as landing over 300 strikes/fight. While Diaz is indeed renowned for incredible cardio and striking output, that does not track at all with his UFC career, where he never landed more than ~150 strikes in a single fight. He did have many fights outside of the UFC, so I’m thinking that this might be an issue of dividing his career total strikes by the number of fights in the UFC specifically, but then I’m not sure why the UFC’s in-house database would have stats for fights outside the promotion. I wonder if this may be an issue of Diaz often fighting in the promotions Strikeforce or Pride, which were distinct entities previously but are now owned by UFC’s parent company, Zuffa.\nThose are perhaps some things I’ll dig into for a later blog, but let’s go ahead and take a look at more visualization before I wrap up for now."
   }
 ]

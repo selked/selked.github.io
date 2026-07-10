@@ -1,0 +1,257 @@
+---
+title: "Tidy Tuesday {{< fa hand-back-fist >}} Striking in the UFC "
+description: "An exploration of UFC striking data with interactive plotting"
+date: 07-10-2026
+image: preview.png
+categories: [MMA, Data Visualization, Tidy Tuesday]
+citation:
+  url: https://selked.github.io/07-09-2026-tidy-ufc
+  title: "Tidy Tuesday: Striking in the UFC"
+draft: false
+---
+
+# Introduction
+
+For my first blog post, I decided to finally start having some fun with [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday). It's been on my radar for a while now, and---as a degenerate MMA enthusiast---I finally answered the call after observing that this past Tuesday's challenge involved the UFCstats.com database.
+
+I've also been thinking more about interactivity in data visualization lately. It's probably about time I get more familiar with this kind of reporting, so I'm taking this opportunity to work with the super neat [ggiraph](https://davidgohel.github.io/ggiraph/) package for R. I'll note that I'm not going to make the code the focus of the post here, but I encourage you to view the source code for this page if you are curious.
+
+# The Data
+
+Tidy Tuesday draws on the [fightr](https://github.com/benyamindsmith/fightr) package from Benjamin Smith, which allows easy access to the live database at [UFCstats.com](http://ufcstats.com/statistics/events/completed). As the website title suggests, this is the UFC's personal repository of fighter metrics. It hosts a litany of variables tracking fighters' career averages along with cumulative, fight-by-fight measures of striking and grappling performance.
+
+# Striking Volume vs. Elusivity
+
+I'm a big Max Holloway fan, and he's got a fight coming up this weekend, so I opted to look at a couple measures I'd seen plotted before in [this Reddit post](https://www.reddit.com/r/MMA/comments/1lzt6xx/visualizing_max_holloways_ridiculous_ufc_career/) from the data scientist [Nate Latshaw](https://linktr.ee/natelatshaw). It's a neat pairing of striking measures, and the data reveals a clear and interesting story about Holloway in particular. He's widely regarded as a technical and unrelenting striker, which is apparent enough from watching him, but it's cool to see the sheer anomaly of his career.
+
+I remember thinking when I first saw this post that I'd also like to take a look at a wider breadth of fighters. Several compelling stories emerge in Latshaw's visual, but there are natural limits to static text labels with this much data. Adding a bit of interactivity seems like a great fit for a fight sicko like myself.
+
+## The Plot
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Load some packages
+
+library(tidyverse)
+library(ggiraph)
+library(sysfonts)
+sysfonts::font_add_google("Roboto Condensed")
+sysfonts::font_add("Arial Narrow", regular = "ARIALN.ttf")
+library(showtext)
+library(hrbrthemes)
+library(wesanderson)
+
+# Bring in the data
+load("ufc_data.rda")
+
+invisible(list2env(ufc_data, envir = globalenv()))
+rm(ufc_data)
+
+# Calculate striking accuracy
+
+ufc_athletes <- ufc_athletes |>
+  mutate(
+    sig_str_acc = sig_strikes_landed/sig_strikes_attempted)
+
+# Get the number of fights each fighter has had in the UFC (rather than fights across all promotions)
+
+num_ufc_fights <- ufc_fights |>
+  group_by(f1_name) |>
+  summarize(
+    num_fights_1 = length(f1_result))
+
+num_ufc_fights2 <- ufc_fights |>
+  group_by(f2_name) |>
+  summarize(
+  num_fights_2 = length(f2_result))
+
+names(num_ufc_fights)[1] <- "name"
+names(num_ufc_fights)[2] <- "num_fights"
+
+names(num_ufc_fights2)[1] <- "name"
+
+checkerino <- merge(num_ufc_fights, num_ufc_fights2)
+
+total_fights <- checkerino |>
+  mutate(total_fights = num_fights + num_fights_2) |>
+  select(name, total_fights)
+
+ufc_athletes <- left_join(ufc_athletes, total_fights)
+
+# Take a look at striking attempts per fight
+ufc_athletes <- ufc_athletes |>
+  mutate(
+    sig_att_rate = sig_strikes_attempted/total_fights)
+
+# Apply exclusion criteria for sample. I want to look at active fighters who have a decent amount of UFC experience. I'm also getting rid of Charles Radtke, whose data seems not to have synced appropriately. 
+
+active_five_sub <- ufc_athletes |>
+  filter(total_fights >= 5 & status == "Active" & name != "Charles Radtke") |>
+  drop_na(total_fights)
+
+# Calculate some central tendency measures for plotting later on
+
+mean_acc <- mean(active_five_sub$sig_str_acc, na.rm = TRUE)
+
+med_land <- median(active_five_sub$sig_strikes_attempted, na.rm = TRUE)
+med_rate <- median(active_five_sub$sig_att_rate, na.rm = TRUE)
+
+med_land <- median(active_five_sub$sig_strikes_landed, na.rm = TRUE)
+
+med_land_min <- median(active_five_sub$sig_str_landed, na.rm = TRUE)
+
+# Calculate striking differential & calculate a median
+active_five_sub <- active_five_sub |>
+  mutate(sig_str_diff = sig_str_landed - sig_str_absorbed)
+
+med_diff <- median(active_five_sub$sig_str_diff, na.rm = TRUE)
+
+# Append a 'striking profile' variable that applies a descriptive label based on a fighter's position in the quadrant chart
+active_five_sub <- active_five_sub |>
+  mutate(
+    profile = case_when(
+      sig_strikes_landed >= med_land & sig_str_diff >= med_diff ~ "High volume, Elusive",
+      sig_strikes_landed <= med_land & sig_str_diff >= med_diff ~ "Low-volume, Elusive",
+      sig_strikes_landed >= med_land & sig_str_diff <= med_diff ~ "High-volume, Hittable",
+      sig_strikes_landed <= med_land & sig_str_diff <= med_diff ~ "Low-volume, Hittable"
+      
+    )
+  ) |>
+  drop_na(profile)
+
+
+# This is the text that will appear when hovering over a point in the ggiraph object
+tooltip <- paste0(
+  active_five_sub$name, "\n",
+  "\n Total Sig. strikes: ", active_five_sub$sig_strikes_landed,
+  "\n Strikes landed/minute: ", active_five_sub$sig_str_landed,
+  "\n Sig. strike diff: ", round(active_five_sub$sig_str_diff, digits = 2),
+  "\n Total UFC bouts: ", active_five_sub$total_fights
+)
+
+# I like showtext for displaying custom fonts, so I'm using their engine for this
+showtext.auto()
+
+my_plot <- active_five_sub |>
+  filter(status == "Active" & total_fights >= 5 & name != "Charles Radtke") |>
+  drop_na(profile, total_fights) |>
+  ggplot() +
+  geom_point_interactive(aes(x = sig_str_diff, y = sig_strikes_landed, color = profile,
+                             tooltip = tooltip, data_id = name, hover_nearest = FALSE)
+
+  ) +
+  geom_hline(yintercept = med_land, color = "yellow") +
+  geom_vline(xintercept = med_diff, color = "yellow") +
+  scale_x_continuous(breaks = seq(-4,4, 2 )) +
+  labs(
+    title = "Striking Volume and Elusivity in UFC Fighters",
+    subtitle = "Active fighters with at least 5 UFC bouts",
+    x = "Significant strikes landed/minute - absorbed/minute",
+    y = "Total signifncant strikes landed",
+    caption = "Created by Daulton Selke \n Data: fightr package & UFCStats.com"
+  ) +
+  scale_color_manual_interactive(values = wes_palette("AsteroidCity1")) +
+  guides(color = "none") +
+  theme_ft_rc(
+    plot_margin = margin(6, 6, 6, 6, unit = "pt"),
+    caption_size = 7,
+    axis_title_size = 12,
+    grid = FALSE,
+    axis = TRUE,
+    ticks = TRUE
+  ) +
+  theme(
+    plot.caption.position = "plot"
+  )
+
+girafe(ggobj = my_plot,
+       options = list(
+         opts_hover_inv(css = "opacity:0.1")
+       ))
+
+
+```
+
+Not too bad! I'll note that the data didn't include a ready-made variable for total strikes absorbed, so I wound up using the per/minute metrics rather for calculating the striking differential plotted on the x-axis. It should be possible to reconstruct these cumulative counts from the fight-by-fight data, but that will be a task for another blog.
+
+I opted to plot this in quadrant fashion, where the data is split vertically according to the sample's mean striking differential, and horizontally according to the sample's median number of total strikes landed. So, a fighter will ideally want to be in the upper right corner of this plot, which reflects above-average performance in both total strikes landed and striking differential. A fighter in the lower left corner, on the other hand, is in a tough spot. They don't land very much, and they get hit much more often than they land. Daniel Lacerda in the far-left corner reflects a worst-case scenario here, and the stats track with his qualitative experience in the promotion. He had 6 fights with the promotion, with one No Contest and 5 losses within the first two rounds.
+
+As for Max Holloway, we can see that his dominance in overall strikes landed remains visually striking here, but characterizing his striking differential in terms of per/minute stats---rather than career totals---does attenuate his dominance in striking differential. However, many of the fighters with notably higher differentials are also not quite as far into their careers. For example, note Wang Cong in the bottom right corner. She has one of the best differentials logged, but this reflects a peformance across 5 UFC fights compared to Max's 32 UFC fights. Tom Aspinall is in a similar vein here, though he does have 10 fights. Because he is a notorious effective finisher, he very rarely fights beyond the first round, basically meaning that he's too successful to accumulate much volume.
+
+I'll note that the drafting process for this figure revealed some possible inconsistencies in the data. I filtered out "Charles Radtke", whom I verified as having an impossibly low strike count. I also attempted to plot total strikes landed in terms of a per-fight average, and Nick Diaz was recorded as landing over 300 strikes/fight. While Diaz is indeed renowned for incredible cardio and striking output, that does not track at all with his UFC career, where he never landed more than \~150 strikes in a single fight. He did have many fights outside of the UFC, so I'm thinking that this might be an issue of dividing his career total strikes by the number of fights in the UFC specifically, but then I'm not sure why the UFC's in-house database would have stats for fights outside the promotion. I wonder if this may be an issue of Diaz often fighting in the promotions Strikeforce or Pride, which were distinct entities previously but are now owned by UFC's parent company, Zuffa.
+
+Those are perhaps some things I'll dig into for a later blog, but let's go ahead and take a look at one more visualization before I wrap up for now.
+
+# Career PFP Rankings of UFC 329 Champions
+
+While there aren't any active champions competing in this weekend's event, there will be 4 fighters who held a belt at some point. As another exercise in interactivity, I'm going to take a look at the critical evaluation of these fighters throughout their careers.
+
+To do this, I'm going to use the Pound-for-Pound (PFP) rankings. The operation of this concept has always seemed a bit inscrutable to me, but it's supposed to capture a fighter's overall skills, independent of weight class. The term originates in boxing and is mostly commonly associated with Sugar Ray Robinson---widely regarded as perhaps the greatest boxer of all time. Robinson mostly fought in welterweight and middleweight (\~ 140 - 160 pounds), making him much lighter than even early-20th-century heavyweights. Weight classes exist for good reason, and the conventional wisdom is that a less skilled fighter can reliably overcome a skill gap with a size mismatch. So, pound-for-pound emerged as a way for people to emphasize Robinson's extraordinary depth of boxing mastery despite competing in the lighter weight classes.
+
+These rankings are decided by a panel in an opaque process, so it's hard to say how exactly these assessments are made. That said, actions like maintaining dominance over your weight-class or finding success in multiple weight divisions seem to impact fighters' rankings. Anecdotally, I find that the top 5 or so ranked PFP fighters do pretty consistently reflect the consensus on greatest active fighters, but things can become a little less clear beyond that.
+
+Thankfully, `fightr`'s data also includes historical rankings, with a ranking recorded once per week. So, I've filtered for UFC 329's former champions, aggregated rankings at the monthly level, and plotted each rank. Each point reflects one fighter's highest ranking during a given month, and I've included smoothed trend lines for each fighter's overall PFP tenure. Hovering over a line or point will emphasize a single fighters' trajectory relative to other fighters, and hovering over an individual point will reveal the fighter's name and all-time peak PFP ranking.
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
+# Get only PFP rankings from the rankings data
+pfp <- ufc_rankings_dataset |>
+  filter(weightclass == "Pound-for-Pound")
+
+# Load in timetk for easy date-based summarizing
+library(timetk)
+
+pfp_monthly <- pfp |>
+  group_by(fighter) |>
+  summarize_by_time(
+    .date_var = date,
+    .by = "month",
+    monthly_rank = max(rank)
+  )
+
+# Filter out all fighters except our former champs
+pfp_329 <- pfp_monthly |>
+  filter(fighter == "Max Holloway" | fighter == "Conor McGregor" | fighter == "Robert Whittaker" | fighter == "Cody Garbrandt")
+
+# Create an object to specify the info that will be displayed when we hover near a point or trend line
+tooltip_point <- paste0(
+  pfp_329$fighter, "\n",
+  "\n Peak Monthly Rank: ", pfp_329$monthly_rank
+
+)
+
+peak_rank <- pfp_329 |>
+  group_by(fighter) |>
+  summarize(peak_rank = min(monthly_rank))
+
+# Create our plot object for use in girafe() shortly
+ploterino <- pfp_329 |>
+  ggplot(aes(x = date, y = monthly_rank, color = fighter,
+             data_id = fighter)) +
+  geom_smooth_interactive(se = FALSE) +
+  geom_point_interactive(tooltip = tooltip_point, hover_nearest = TRUE) +
+  labs(
+    x = "Monthly Data",
+    y = "Peak Monthly Ranking",
+    title = "Historical Pound for Pound Rankings for UFC 329 Champions",
+    caption = "Created by Daulton Selke \n Data from fightr package & UFCstats.com") +
+  scale_y_continuous(transform = "reverse", breaks = seq(1,15,1)) +
+  scale_x_datetime(date_breaks = "year", date_labels = "%b-%Y") +
+  #scale_color_manual_interactive(values = wes_palette("AsteroidCity1")) +
+  theme_ft_rc(
+    plot_margin = margin(6, 6, 6, 6, unit = "pt"),
+    caption_size = 7,
+    axis_title_size = 12,
+    grid = FALSE,
+    axis = TRUE,
+    ticks = TRUE) +
+  guides(color = "none")
+
+
+girafe(ggobj = ploterino,
+       options = list(
+         opts_hover_inv(css = "opacity:0.1;filter:saturate(10%)"),
+         opts_hover(css = "color; transition: all 0.3s ease;"))
+       )
+```
