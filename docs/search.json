@@ -67,7 +67,7 @@
     "href": "posts.html",
     "title": "Daulton’s Blog",
     "section": "",
-    "text": "No matching items"
+    "text": "Tidy Tuesday  Striking in the UFC\n\n\n\nMMA\n\nData Visualization\n\nTidy Tuesday\n\n\n\nAn exploration of UFC striking data with interactive plotting\n\n\n\nDaulton Selke\n\n\nJul 9, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c2066612d626f6f6b203e7d7d-projects-currently-underway",
@@ -110,5 +110,12 @@
     "title": "Daulton Selke",
     "section": " Education",
     "text": "Education\n PhD, Sociology, North Carolina State University (expected 2026)\n M.S., Sociology, North Carolina State University (2023)\n B.A., Writing & Applied Linguistics, Grand Valley State University (2017)"
+  },
+  {
+    "objectID": "posts/2026-07-09-tidy-ufc/index.html",
+    "href": "posts/2026-07-09-tidy-ufc/index.html",
+    "title": "Tidy Tuesday  Striking in the UFC",
+    "section": "",
+    "text": "Introduction\nFor my first blog post, I decided to finally start having some fun with Tidy Tuesday. It’s been on my radar for a while now, and—as a degenerate MMA enthusiast—I finally answered the call after observing that this past Tuesday’s challenge involved the UFCstats.com database.\nI’ve also been thinking more about interactivity in data visualization lately. It’s probably about time I get more familiar with this kind of reporting, so I’m taking this opportunity to work with the super neat ggiraph package for R.\n\n\nThe Data\nTidy Tuesday draws on the fightr package from Benjamin Smith, which allows easy access to the live database at UFCstats.com. As the website title suggests, this is the UFC’s personal repository of fighter metrics. It hosts a litany of variables tracking fighters’ career averages along with cumulative, fight-by-fight measures of striking and grappling performance.\n\n\nThe Idea\nI’m a big Max Holloway fan, and he’s got a fight coming up this weekend, so I opted to look at a couple measures I’d seen plotted before in this Reddit post from the data scientist Nate Latshaw. It’s a neat pairing of striking measures, and the data reveals a clear and interesting story about Holloway in particular. He’s widely regarded as a technical and unrelenting striker, which is apparent enough from watching him, but it’s cool to see the sheer anomaly of his career.\nI remember thinking when I first saw this post that I’d also like to take a look at a wider breadth of fighters. Several compelling stories emerge in Latshaw’s visual, but there are natural limits to static text labels with this much data. Adding a bit of interactivity seems like a great fit for the especially curious fan.\n\n\nThe Plot\n\n\n\n\n\n\n\n\n\n\nCitationBibTeX citation:@online{selke2026,\n  author = {Selke, Daulton},\n  title = {Tidy {Tuesday:} {Striking} in the {UFC}},\n  date = {2026-07-09},\n  url = {https://selked.github.io/07-09-2026-tidy-ufc},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSelke, Daulton. 2026. “Tidy Tuesday: Striking in the UFC.”\nJuly 9. https://selked.github.io/07-09-2026-tidy-ufc."
   }
 ]
