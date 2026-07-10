@@ -15,6 +15,16 @@ website:
       - href: posts.qmd
         icon: pencil-square
         text: Blog
+      - icon: tools
+        text: Resources
+        menu:
+          - text: R Workbook for Undergrad Research Methods
+            href: https://selked.github.io/SOC300-Intro-R
+            icon: book
+          - text: R Package for Batch Audio Transcription
+            href: https://github.com/selked/scrivenR
+            icon: github
+        
       
     
       
