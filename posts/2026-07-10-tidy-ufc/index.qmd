@@ -26,6 +26,27 @@ I'm a big Max Holloway fan, and he's got a fight coming up this weekend, so I op
 
 I remember thinking when I first saw this post that I'd also like to take a look at a wider breadth of fighters. Several compelling stories emerge in Latshaw's visual, but there are natural limits to static text labels with this much data. Adding a bit of interactivity seems like a great fit for a fight sicko like myself.
 
+I'll offer a brief preview of the plot below before we take a look.
+
+On the y-axis, the measure is straightforward enough: Total strikes landed. Obviously enough, this is the total number of strikes landed by a fighter across all of their UFC bouts.
+
+On the x-axis, we have the fighters' striking differentials. This metric is calculated by taking a fighter's strikes-landed-per-minute and subtracting their strikes-absorbed-per-minute. In simpler terms, fighters with a positive differential are landing more than they are getting hit, and fighters with a negative differential get hit more than they land. You can think of this dimension as roughly capturing something like ergonomic vs. attritive, or elusive vs. hittable. 
+
+So, the following coordinate plane is mapping the fighters' overall striking volume in context of their striking's effectiveness. I've included lines marking the sample's mean striking differential, as well as the sample's median number of total strikes landed. This divides the plane into four quadrants, which you can think of in terms of the following categories.
+
+|                              |                             |
+|------------------------------|-----------------------------|
+| High career volume, hittable | High career volume, elusive |
+| Low career volume, hittable  | Low career volume, elusive  |
+
+For the interactive element, I've used `ggiraph` to allow hover elements with CSS styling. When you hover over an individual point, all the other points will be faded out to emphasize the selected point. A small informational display will also report variables associated with each point, including:
+
+- the name of the fighter
+- total strikes landed
+- avg strikes landed per minute
+- avg striking differential
+- total fights in the UFC
+
 ## The Plot
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
@@ -172,27 +193,26 @@ girafe(ggobj = my_plot,
 
 ```
 
-Not too bad! I'll note that the data didn't include a ready-made variable for total strikes absorbed, so I wound up using the per/minute metrics rather for calculating the striking differential plotted on the x-axis. It should be possible to reconstruct these cumulative counts from the fight-by-fight data, but that will be a task for another blog.
+Not too bad! I'll note that the data didn't include a ready-made variable for total strikes absorbed, so I wound up using the per/minute metrics for calculating the striking differential plotted on the x-axis. It should be possible to reconstruct these cumulative counts from the fight-by-fight data, but that will be a task for another blog.
 
-I opted to plot this in quadrant fashion, where the data is split vertically according to the sample's mean striking differential, and horizontally according to the sample's median number of total strikes landed. So, a fighter will ideally want to be in the upper right corner of this plot, which reflects above-average performance in both total strikes landed and striking differential. A fighter in the lower left corner, on the other hand, is in a tough spot. They don't land very much, and they get hit much more often than they land. Daniel Lacerda in the far-left corner reflects a worst-case scenario here, and the stats track with his qualitative experience in the promotion. He had 6 fights with the promotion, with one No Contest and 5 losses within the first two rounds.
+As for Max Holloway, we can see that his dominance in overall strikes landed remains visually striking here, but characterizing his striking differential in terms of per/minute stats---rather than career totals---does attenuate his dominance in striking differential. Also, while Latshaw compared Max to all UFC fighters in the promotion's history, I'm only including active fighters with at least 5 bouts in the promotion. I'll note that many of the fighters with markedly higher differentials are also not quite as far into their careers. For example, observe Wang Cong in the bottom right corner. She has the best differential logged, but this reflects a performance across 5 UFC fights compared to Max's 32 UFC fights. Tom Aspinall is in a similar vein here, though he does have a respectable 10 fights. Because he is a notoriously effective finisher, he very rarely fights beyond the first round, basically meaning that he's too successful to accumulate much volume.
 
-As for Max Holloway, we can see that his dominance in overall strikes landed remains visually striking here, but characterizing his striking differential in terms of per/minute stats---rather than career totals---does attenuate his dominance in striking differential. However, many of the fighters with notably higher differentials are also not quite as far into their careers. For example, note Wang Cong in the bottom right corner. She has one of the best differentials logged, but this reflects a peformance across 5 UFC fights compared to Max's 32 UFC fights. Tom Aspinall is in a similar vein here, though he does have 10 fights. Because he is a notoriously effective finisher, he very rarely fights beyond the first round, basically meaning that he's too successful to accumulate much volume.
+I'll note that the drafting process for this figure revealed some possible inconsistencies in the data. I filtered out Charles Radtke, for example, whom I verified as having an impossibly low strike count. I also attempted at one point to plot total strikes landed in terms of a per-fight average, and Nick Diaz was recorded as landing over 300 strikes/fight. While Diaz is indeed renowned for incredible cardio and striking output, that does not track at all with his UFC career, where he never landed more than \~150 strikes in a single fight. He did have many fights outside of the UFC, so I'm thinking that this might be an issue of dividing his career total strikes by the number of fights in the UFC specifically, but then I'm not sure why the UFC's in-house database would have stats for fights outside the promotion. I wonder if this may be an issue of Diaz often fighting in other promotions like Strikeforce or Pride, which were distinct entities previously but are now owned by UFC's parent company, Zuffa.
 
-I'll note that the drafting process for this figure revealed some possible inconsistencies in the data. I filtered out "Charles Radtke", whom I verified as having an impossibly low strike count. I also attempted to plot total strikes landed in terms of a per-fight average, and Nick Diaz was recorded as landing over 300 strikes/fight. While Diaz is indeed renowned for incredible cardio and striking output, that does not track at all with his UFC career, where he never landed more than \~150 strikes in a single fight. He did have many fights outside of the UFC, so I'm thinking that this might be an issue of dividing his career total strikes by the number of fights in the UFC specifically, but then I'm not sure why the UFC's in-house database would have stats for fights outside the promotion. I wonder if this may be an issue of Diaz often fighting in the promotions Strikeforce or Pride, which were distinct entities previously but are now owned by UFC's parent company, Zuffa.
-
-Those are perhaps some things I'll dig into for a later blog, but let's go ahead and take a look at one more visualization before I wrap up for now.
+Those are perhaps some things I'll dig into in a later blog, but let's go ahead and take a look at one more visualization before I wrap up for now.
 
 # Career PFP Rankings of UFC 329 Champions
 
 While there aren't any active champions competing in this weekend's event, there will be 4 fighters who held a belt at some point. As another exercise in interactivity, I'm going to take a look at the critical evaluation of these fighters throughout their careers.
 
+## Background on PFP
 To do this, I'm going to use the Pound-for-Pound (PFP) rankings. The operation of this concept has always seemed a bit inscrutable to me, but it's supposed to capture a fighter's overall skills, independent of weight class. The term originates in boxing and is mostly commonly associated with Sugar Ray Robinson---widely regarded as perhaps the greatest boxer of all time. Robinson mostly fought in welterweight and middleweight (\~ 140 - 160 pounds), making him much lighter than even early-20th-century heavyweights. Weight classes exist for good reason, and the conventional wisdom is that a less skilled fighter can reliably overcome a skill gap with a size mismatch. So, pound-for-pound emerged as a way for people to emphasize Robinson's extraordinary depth of boxing mastery despite competing in the lighter weight classes.
 
 These rankings are decided by a panel in an opaque process, so it's hard to say how exactly these assessments are made. That said, actions like maintaining dominance over your weight-class or finding success in multiple weight divisions seem to impact fighters' rankings. Anecdotally, I find that the top 5 or so ranked PFP fighters do pretty consistently reflect the consensus on greatest active fighters, but things can become a little less clear beyond that.
 
-Thankfully, `fightr`'s data also includes historical rankings, with a ranking recorded once per week. So, I've filtered for UFC 329's former champions, aggregated rankings at the monthly level, and plotted each rank. Each point reflects one fighter's highest ranking during a given month, and I've included smoothed trend lines for each fighter's overall PFP tenure. Hovering over a line or point will emphasize a single fighters' trajectory relative to other fighters, and hovering over an individual point will reveal the fighter's name and the exact monthly rating for the point closest to your cursor.
+Thankfully, `fightr`'s data also includes historical rankings, with a ranking recorded once per week. So, I've filtered for UFC 329's former champions, aggregated rankings at the monthly level, and plotted each rank. Each point reflects one fighter's highest ranking during a given month, and I've included smoothed trend lines for each fighter's overall PFP tenure. Hovering over a line or point will emphasize a single fighters' trajectory relative to other fighters, and hovering near an individual point will reveal the fighter's name and the exact monthly rating for the point closest to your cursor.
 
-
+## The Plot 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
 # Get only Men's PFP rankings from the rankings data
@@ -240,7 +260,7 @@ ploterino <- pfp_329 |>
   labs(
     x = "Monthly Data",
     y = "Peak Monthly Ranking",
-    title = "Historical Pound for Pound Rankings for UFC 329 Champions",
+    title = "Historical Pound for Pound Rankings of UFC 329 Champions",
     caption = "Created by Daulton Selke \n Data from fightr package & UFCstats.com") +
   scale_y_continuous(transform = "reverse", breaks = seq(1,15,1)) +
   scale_x_datetime(date_breaks = "year", date_labels = "%Y") +
@@ -261,3 +281,7 @@ girafe(ggobj = ploterino,
          opts_hover(css = "color; transition: all 0.3s ease;"))
        )
 ```
+
+Good stuff. We can see that McGregor had the highest peak, but Holloway had the most sustained dominance---while reaching an appreciably high peak himself. Though both McGregor and Holloway entered into the PFP rankings near the bottom of the list and worked their way up, we can see that this is not the only way to do things. Cody Garbrandt first landed on the PFP rankings after an incredible upset over longtime Bantamweight champion, Dominick Cruz. But, as the great Mike Ehrmantrout once said: killing Jesse James doesn't make you Jesse James. This comes across clearly here. Robert Whittaker's tenure is modest by comparison (though at least more persistent than Garbrandt's). However, dear Reader, Whittaker's peak may well raise some issues with the measurement validity of PFP. 
+
+That will do us for now. Enjoy the fights!
