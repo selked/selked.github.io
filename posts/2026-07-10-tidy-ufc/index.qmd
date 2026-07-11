@@ -285,3 +285,13 @@ girafe(ggobj = ploterino,
 Good stuff. We can see that McGregor had the highest peak, but Holloway had the most sustained dominance---while reaching an appreciably high peak himself. Though both McGregor and Holloway entered into the PFP rankings near the bottom of the list and worked their way up, we can see that this is not the only way to do things. Cody Garbrandt first landed on the PFP rankings after an incredible upset over longtime Bantamweight champion, Dominick Cruz. But, as the great Mike Ehrmantrout once said: killing Jesse James doesn't make you Jesse James. This comes across clearly here. Robert Whittaker's tenure is modest by comparison (though at least more persistent than Garbrandt's). However, dear Reader, Whittaker's peak may well raise some issues with the measurement validity of PFP. 
 
 That will do us for now. Enjoy the fights!
+
+
+# Packages Used
+- [hrbrthemes](https://github.com/hrbrmstr/hrbrthemes)
+- [tidyverse](https://tidyverse.org/)
+- [wesanderson](https://github.com/karthik/wesanderson)
+- [ggiraph](https://davidgohel.github.io/ggiraph/)
+- [timetk](https://business-science.github.io/timetk/)
+- [sysfonts](https://github.com/yixuan/sysfonts)
+- [showtext](https://github.com/yixuan/showtext)
