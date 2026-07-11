@@ -5,7 +5,7 @@ date: 07-10-2026
 image: preview.png
 categories: [MMA, Data Visualization, Tidy Tuesday]
 citation:
-  url: https://selked.github.io/07-09-2026-tidy-ufc
+  url: https://selked.github.io/07-10-2026-tidy-ufc
   title: "Tidy Tuesday: Striking in the UFC"
 draft: false
 ---
@@ -195,9 +195,15 @@ Thankfully, `fightr`'s data also includes historical rankings, with a ranking re
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
-# Get only PFP rankings from the rankings data
+# Get only Men's PFP rankings from the rankings data
 pfp <- ufc_rankings_dataset |>
-  filter(weightclass == "Pound-for-Pound")
+  filter(weightclass == "Pound-for-Pound" | weightclass == "Men's Pound-for-Pound")
+
+# PFP split into Men's and Women's lists after 2020, so I'm grabbing the post-2020 Men's rankings like this
+pfp$weightclass <- pfp$weightclass |>
+  fct_recode(
+  "Pound-for-Pound" = "Men's Pound-for-Pound"
+)
 
 # Load in timetk for easy date-based summarizing
 library(timetk)
