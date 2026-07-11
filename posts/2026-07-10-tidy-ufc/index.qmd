@@ -243,7 +243,7 @@ pfp_329 <- pfp_monthly |>
 # Create an object to specify the info that will be displayed when we hover near a point or trend line
 tooltip_point <- paste0(
   pfp_329$fighter, "\n",
-  "\n Peak Monthly Rank: ", pfp_329$monthly_rank
+  "\n Monthly Rank: ", pfp_329$monthly_rank
 
 )
 
@@ -259,7 +259,7 @@ ploterino <- pfp_329 |>
   geom_point_interactive(tooltip = tooltip_point, hover_nearest = TRUE) +
   labs(
     x = "Monthly Data",
-    y = "Peak Monthly Ranking",
+    y = "Monthly Ranking",
     title = "Historical Pound for Pound Rankings of UFC 329 Champions",
     caption = "Created by Daulton Selke \n Data from fightr package & UFCstats.com") +
   scale_y_continuous(transform = "reverse", breaks = seq(1,15,1)) +
