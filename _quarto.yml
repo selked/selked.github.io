@@ -12,9 +12,6 @@ website:
       - href: index.qmd
         icon: house
         text: Home
-      - href: posts.qmd
-        icon: pencil-square
-        text: Blog
       - icon: tools
         text: Resources
         menu:
@@ -24,6 +21,10 @@ website:
           - text: R Package for Batch Audio Transcription
             href: https://github.com/selked/scrivenR
             icon: github
+      - href: posts.qmd
+        icon: pencil-square
+        text: Blog
+      
         
       
     
