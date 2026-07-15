@@ -28,11 +28,11 @@ I remember thinking when I first saw this post that I'd also like to take a look
 
 I'll offer a brief preview of the plot below before we take a look.
 
-On the y-axis, the measure is straightforward enough: Total strikes landed. Obviously enough, this is the total number of strikes landed by a fighter across all of their UFC bouts.
+On the y-axis, the measure is straightforward enough: Total strikes landed. This is the total number of strikes landed by a fighter across all of their UFC bouts.
 
 On the x-axis, we have the fighters' striking differentials. This metric is calculated by taking a fighter's strikes-landed-per-minute and subtracting their strikes-absorbed-per-minute. In simpler terms, fighters with a positive differential are landing more than they are getting hit, and fighters with a negative differential get hit more than they land. You can think of this dimension as roughly capturing something like ergonomic vs. attritive, or elusive vs. hittable.
 
-So, the following coordinate plane is mapping the fighters' overall striking volume in context of their striking's effectiveness. I've included lines marking the sample's mean striking differential, as well as the sample's median number of total strikes landed. This divides the plane into four quadrants, which you can think of in terms of the following categories.
+So, the following coordinate plane is mapping the fighters' overall striking volume in context of their striking's effectiveness. I've included lines marking the sample's mean striking differential, as well as the sample's median number of total strikes landed. This divides the plane into four quadrants, which you can think of in terms of the following categories:
 
 |                              |                             |
 |------------------------------|-----------------------------|
@@ -68,12 +68,6 @@ load("ufc_data.rda")
 invisible(list2env(ufc_data, envir = globalenv()))
 rm(ufc_data)
 
-# Calculate striking accuracy
-
-ufc_athletes <- ufc_athletes |>
-  mutate(
-    sig_str_acc = sig_strikes_landed/sig_strikes_attempted)
-
 # Get the number of fights each fighter has had in the UFC (rather than fights across all promotions)
 
 num_ufc_fights <- ufc_fights |>
@@ -99,10 +93,11 @@ total_fights <- checkerino |>
 
 ufc_athletes <- left_join(ufc_athletes, total_fights)
 
-# Take a look at striking attempts per fight
+# Calculate striking accuracy
+
 ufc_athletes <- ufc_athletes |>
   mutate(
-    sig_att_rate = sig_strikes_attempted/total_fights)
+    sig_str_acc = sig_strikes_landed/sig_strikes_attempted)
 
 # Apply exclusion criteria for sample. I want to look at active fighters who have a decent amount of UFC experience. I'm also getting rid of Charles Radtke, whose data seems not to have synced appropriately. 
 
@@ -110,22 +105,15 @@ active_five_sub <- ufc_athletes |>
   filter(total_fights >= 5 & status == "Active" & name != "Charles Radtke") |>
   drop_na(total_fights)
 
-# Calculate some central tendency measures for plotting later on
-
-mean_acc <- mean(active_five_sub$sig_str_acc, na.rm = TRUE)
-
-med_land <- median(active_five_sub$sig_strikes_attempted, na.rm = TRUE)
-med_rate <- median(active_five_sub$sig_att_rate, na.rm = TRUE)
-
-med_land <- median(active_five_sub$sig_strikes_landed, na.rm = TRUE)
-
-med_land_min <- median(active_five_sub$sig_str_landed, na.rm = TRUE)
-
 # Calculate striking differential & calculate a median
 active_five_sub <- active_five_sub |>
   mutate(sig_str_diff = sig_str_landed - sig_str_absorbed)
 
+# Calculate some central tendency measures for plotting later on
+
+med_land <- median(active_five_sub$sig_strikes_landed, na.rm = TRUE)
 med_diff <- median(active_five_sub$sig_str_diff, na.rm = TRUE)
+
 
 # Append a 'striking profile' variable that applies a descriptive label based on a fighter's position in the quadrant chart
 active_five_sub <- active_five_sub |>
@@ -141,7 +129,7 @@ active_five_sub <- active_five_sub |>
   drop_na(profile)
 
 
-# This is the text that will appear when hovering over a point in the ggiraph object
+# Create the text that will appear when hovering over a point in the ggiraph object
 tooltip <- paste0(
   active_five_sub$name, "\n",
   "\n Total Sig. strikes: ", active_five_sub$sig_strikes_landed,
@@ -153,6 +141,7 @@ tooltip <- paste0(
 # I like showtext for displaying custom fonts, so I'm using their engine for this
 showtext.auto()
 
+# Make the plot
 my_plot <- active_five_sub |>
   filter(status == "Active" & total_fights >= 5 & name != "Charles Radtke") |>
   drop_na(profile, total_fights) |>
@@ -181,12 +170,11 @@ my_plot <- active_five_sub |>
     axis = TRUE,
     ticks = TRUE
   ) +
-  theme(
-    plot.caption.position = "plot"
-  )
+  theme( plot.caption.position = "plot")
 
-girafe(ggobj = my_plot,
-       options = list(
+girafe(
+  ggobj = my_plot,
+  options = list(
          opts_hover_inv(css = "opacity:0.1")
        ))
 
@@ -217,17 +205,18 @@ Thankfully, `fightr`'s data also includes historical rankings, with a ranking re
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
-# Get only Men's PFP rankings from the rankings data
+# All champs on 329 are men, so get only Men's PFP rankings from the rankings data
 pfp <- ufc_rankings_dataset |>
   filter(weightclass == "Pound-for-Pound" | weightclass == "Men's Pound-for-Pound")
 
-# PFP split into Men's and Women's lists after 2020, so I'm grabbing the post-2020 Men's rankings like this
+# PFP split into separate Men's and Women's lists after 2020, so I'm consolidating the two labels like so
+
 pfp$weightclass <- pfp$weightclass |>
   fct_recode(
   "Pound-for-Pound" = "Men's Pound-for-Pound"
 )
 
-# Load in timetk for easy date-based summarizing
+# Load in timetk for easy date-based summarizing and aggregate the data at the monthly level
 library(timetk)
 
 pfp_monthly <- pfp |>
@@ -242,25 +231,13 @@ pfp_monthly <- pfp |>
 pfp_329 <- pfp_monthly |>
   filter(fighter == "Max Holloway" | fighter == "Conor McGregor" | fighter == "Robert Whittaker" | fighter == "Cody Garbrandt")
 
-# Create an object to specify the info that will be displayed when we hover near a point or trend line
-tooltip_point <- paste0(
-  pfp_329$fighter, "\n"
-  #"\n Monthly Rank: ", pfp_329$monthly_rank
-
-)
-
-peak_rank <- pfp_329 |>
-  group_by(fighter) |>
-  summarize(peak_rank = min(monthly_rank))
 
 # Create our plot object for use in girafe() shortly
 ploterino <- pfp_329 |>
   ggplot(aes(x = date, y = monthly_rank, color = fighter,
              data_id = fighter)) +
   geom_smooth_interactive(se = FALSE) +
-  geom_point_interactive(
-    #tooltip = tooltip_point,
-    ) +
+  geom_point_interactive() +
   labs(
     x = "Monthly Data",
     y = "Monthly Ranking",
@@ -268,7 +245,6 @@ ploterino <- pfp_329 |>
     caption = "Created by Daulton Selke \n Data from fightr package & UFCstats.com") +
   scale_y_continuous(transform = "reverse", breaks = seq(1,15,1)) +
   scale_x_datetime(date_breaks = "year", date_labels = "%Y") +
-  #scale_color_manual_interactive(values = wes_palette("AsteroidCity1")) +
   theme_ft_rc(
     plot_margin = margin(6, 6, 6, 6, unit = "pt"),
     caption_size = 7,
@@ -278,8 +254,7 @@ ploterino <- pfp_329 |>
     ticks = TRUE) +
   guides(color = guide_legend((title = "Fighter"))) +
   theme(
-    plot.caption.position = "plot"
-  )
+    plot.caption.position = "plot")
 
 
 girafe(ggobj = ploterino,
@@ -289,7 +264,7 @@ girafe(ggobj = ploterino,
        )
 ```
 
-Good stuff. We can see that McGregor had the highest peak, but Holloway had the most sustained dominance---while reaching an appreciably high peak himself. Though both McGregor and Holloway entered into the PFP rankings near the bottom of the list and worked their way up, we can see that this is not the only way to do things. Cody Garbrandt first landed on the PFP rankings after an incredible upset over longtime Bantamweight champion, Dominick Cruz. But, as the great Mike Ehrmantrout once said: killing Jesse James doesn't make you Jesse James. This comes across clearly here. Robert Whittaker's tenure is modest by comparison (though at least more persistent than Garbrandt's). However, dear Reader, Whittaker's peak may well raise some issues with the measurement validity of PFP.
+Good stuff. We can see that McGregor had the highest peak, but Holloway had the most sustained dominance---while reaching an appreciably high peak himself. Though both McGregor and Holloway entered into the PFP rankings near the bottom of the list and worked their way up, we can see that this is not the only way to do things. Cody Garbrandt first landed on the PFP rankings after an incredible upset over longtime Bantamweight champion, Dominick Cruz. But, as the great Mike Ehrmantrout once said: killing Jesse James doesn't make you Jesse James. This comes across clearly here. Robert Whittaker's tenure is modest by comparison (though at least more persistent than Garbrandt's). However, dear Reader, Whittaker's real-world peak may just raise some issues with the measurement validity of PFP.
 
 That will do us for now. Enjoy the fights!
 
